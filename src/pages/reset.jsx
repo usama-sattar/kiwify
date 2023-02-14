@@ -21,7 +21,7 @@ export default function Reset() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!validator.isEmail(email)) {
-      setEmail(true);
+      setError(true);
       return;
     }
   };
