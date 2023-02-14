@@ -43,7 +43,17 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add logic for submitting form data here
+    let err = {
+      email: false,
+      password: false,
+    };
+    if (!validator.isEmail(formData.email)) {
+      err.email = true;
+    }
+    if (formData.password.trim() === "") {
+      err.password = true;
+    }
+    setError(err);
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -80,7 +90,6 @@ export default function Login() {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                required
                 onBlur={handleBlur}
                 className={`form-input block py-2 px-3 border rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue  transition duration-150 ease-in-out sm:text-sm sm:leading-5 w-full ${
                   error.email
@@ -116,7 +125,6 @@ export default function Login() {
                 value={formData.password}
                 onBlur={handleBlur}
                 onChange={handleInputChange}
-                required
               />
               {error.password && (
                 <div className="text-xs text-red-500 mt-1">

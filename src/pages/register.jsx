@@ -73,7 +73,6 @@ export default function Register() {
     if (formData.email !== formData.repeatEmail) {
       err.repeatEmail = true;
     }
-
     setError(err);
   };
   return (

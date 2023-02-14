@@ -20,7 +20,10 @@ export default function Reset() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add logic for submitting form data here
+    if (!validator.isEmail(email)) {
+      setEmail(true);
+      return;
+    }
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -51,7 +54,6 @@ export default function Reset() {
                 value={email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                required
                 className={`form-input block py-2 px-3 border rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue  transition duration-150 ease-in-out sm:text-sm sm:leading-5 w-full ${
                   error
                     ? "border-red-500 "
