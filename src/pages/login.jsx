@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import validator from "validator";
+import Toast from "../components/toast";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function Login() {
     email: false,
     password: false,
   });
+  const [response, setResponse] = useState(false);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -42,6 +44,7 @@ export default function Login() {
   };
 
   const handleSubmit = (event) => {
+    setResponse(false);
     event.preventDefault();
     let err = {
       email: false,
@@ -54,6 +57,10 @@ export default function Login() {
       err.password = true;
     }
     setError(err);
+
+    if (!err.email && !err.password) {
+      setResponse(true);
+    }
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -142,6 +149,8 @@ export default function Login() {
                 </a>
               </div>
             </div>
+            {response && <Toast msg="auth/user-not-found" />}
+
             <button
               className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out mt-6"
               type="submit"

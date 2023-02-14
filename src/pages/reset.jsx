@@ -2,10 +2,11 @@ import React from "react";
 import { useState } from "react";
 import Logo from "../assets/logo.png";
 import validator from "validator";
-
+import Toast from "../components/toast";
 export default function Reset() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
+  const [response, setResponse] = useState(false);
 
   const handleInputChange = (event) => {
     setEmail(event.target.value);
@@ -19,11 +20,13 @@ export default function Reset() {
   };
 
   const handleSubmit = (event) => {
+    setResponse(false);
     event.preventDefault();
     if (!validator.isEmail(email)) {
       setError(true);
       return;
     }
+    setResponse(true);
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -69,6 +72,7 @@ export default function Reset() {
                 </div>
               )}
             </div>
+            {response && <Toast msg="auth/user-not-found" />}
 
             <button
               className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out mt-6"
